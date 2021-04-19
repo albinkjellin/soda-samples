@@ -1,10 +1,14 @@
 table_name: customer
-metrics:
-  - row_count
+samples:
+  table_limit: 50
+  failed_limit: 50
 sql_metrics:
-  - sql: |
-            SELECT count(distinct countrycode) as country_code_distinct_count, count(distinct countryname) as country_name_distinct_count
-            FROM customer;
-tests:
-  - row_count > 0
-  - country_code == country_name
+  - type: failed_rows
+    name: INCORRECT_COUNTRY_CODE
+    sql: |
+            SELECT DISTINCT countrycode, countryname, id FROM customer
+              WHERE countrycode IN (
+                SELECT countrycode FROM customer
+                  GROUP BY countrycode
+                  HAVING COUNT(DISTINCT countryname) > 1
+              ) ORDER BY countrycode
