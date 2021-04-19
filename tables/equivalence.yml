@@ -1,0 +1,10 @@
+table_name: customer
+metrics:
+  - row_count
+sql_metrics:
+  - sql: |
+            SELECT count(distinct countrycode) as country_code_distinct_count, count(distinct countryname) as country_name_distinct_count
+            FROM customer;
+tests:
+  - row_count > 0
+  - country_code == country_name

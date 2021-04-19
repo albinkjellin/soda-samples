@@ -1,0 +1,7 @@
+table_name: customer
+metric_groups:
+    - all
+# columns:
+#   size:
+#     metric_groups:
+#       - all

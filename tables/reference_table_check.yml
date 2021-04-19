@@ -1,0 +1,11 @@
+table_name: customer
+metrics:
+  - row_count
+
+sql_metrics:
+  - sql: |
+          SELECT count(*) AS invalid_countrycode_count
+          FROM customer
+          WHERE countrycode NOT IN (SELECT countrycode FROM countrycodes );
+tests:
+  - invalid_countrycode_count == 0

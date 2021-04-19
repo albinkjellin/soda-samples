@@ -1,0 +1,13 @@
+table_name: countrycodes
+metrics:
+  - invalid_percentage
+tests:
+  - row_count > 0
+columns:
+  country:
+    valid_values:
+      - US
+      - UK
+      - Netherlands
+    tests:
+      - invalid_percentage == 0
