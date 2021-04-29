@@ -1,0 +1,9 @@
+table_name: customer
+metrics:
+  - row_count
+sql_metrics:
+  - sql: |
+          SELECT count(*) as other_row_count
+          FROM HOSPITALS;
+    tests:
+      - row_count == other_row_count + 20
