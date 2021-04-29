@@ -1,0 +1,10 @@
+table_name: customer
+metrics:
+  - row_count
+sql_metrics:
+  - sql: |
+          SELECT count(*) as column_count
+          FROM information_schema."columns"
+          where table_schema = 'public' and table_name = 'customer';
+    tests:
+      - column_count == 7
