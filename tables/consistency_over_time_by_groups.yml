@@ -1,0 +1,9 @@
+table_name: hospitals
+sql_metrics:
+    - sql: |
+              SELECT hospital, sum(ClaimAmount) as total_amount
+              FROM hospitals
+              GROUP BY hospital;
+      
+      tests:
+        - total_amount < 5000

@@ -1,0 +1,20 @@
+# https://stackoverflow.com/questions/26490564/postgresql-is-there-a-way-to-select-all-valid-json-data-type
+# https://stackoverflow.com/questions/2583472/regex-to-validate-json
+table_name: json
+metrics:
+  - invalid_percentage
+tests:
+  - row_count > 0
+sql_metrics:
+    - sql: |
+              SELECT count(column_name) as number_of_invalid_column_names FROM INFORMATION_SCHEMA.COLUMNS
+              WHERE TABLE_NAME = 'countrycodes'
+              and column_name not in ('id', 'countrycode');
+
+      tests:
+        - number_of_invalid_column_names == 0
+columns:
+  json:
+    valid_regex: 'isValid'
+    tests:
+      - invalid_percentage == 0

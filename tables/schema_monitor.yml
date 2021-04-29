@@ -1,0 +1,11 @@
+table_name: countrycodes
+metrics:
+  - row_count
+sql_metrics:
+    - sql: |
+              SELECT count(column_name) as number_of_invalid_column_names FROM INFORMATION_SCHEMA.COLUMNS
+              WHERE TABLE_NAME = 'countrycodes'
+              and column_name not in ('id', 'countrycode');
+
+      tests:
+        - number_of_invalid_column_names == 0
