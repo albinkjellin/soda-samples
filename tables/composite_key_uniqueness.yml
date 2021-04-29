@@ -1,0 +1,8 @@
+table_name: PRODUCT_ORDER
+sql_metrics:
+  - sql: |
+            SELECT COUNT(*) AS duplicate_composite_keys
+            FROM PRODUCT_ORDER
+            GROUP BY orderid, productid HAVING COUNT(*) > 1;
+    tests:
+      - duplicate_composite_keys == 0
